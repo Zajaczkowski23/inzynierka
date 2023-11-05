@@ -1,0 +1,22 @@
+:root {
+  --main-header-color: #001e28;
+  --main-background-color: #010a0f;
+  --button-color: #0f2d37;
+  --button-color-hover: #00141e;
+  --white: #fff;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  filter: invert(1);
+}
+
+.main {
+  background-color: var(--main-background-color);
+  height: 100vh;
+}
