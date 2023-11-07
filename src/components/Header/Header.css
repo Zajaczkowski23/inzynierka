@@ -46,3 +46,7 @@
   color: var(--white);
   margin-left: 5px;
 }
+
+.header__img {
+  filter: invert(1);
+}

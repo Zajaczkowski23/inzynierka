@@ -1,5 +1,6 @@
 import "./App.css";
 import Header from "./components/Header/Header";
+import Nav from "./components/Nav/Nav";
 import useFetch from "./hooks/fetchDataHook";
 
 function App() {
@@ -16,13 +17,12 @@ function App() {
     },
   };
 
-  const { data, loading, error } = useFetch(options);
+  // const { data, loading, error } = useFetch(options);
 
   return (
     <main className="main">
       <Header />
-
-      {data && console.log(data)}
+      <Nav />
     </main>
   );
 }

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap");
+
 :root {
   --main-header-color: #001e28;
   --main-background-color: #010a0f;
@@ -12,8 +14,8 @@
   margin: 0;
 }
 
-img {
-  filter: invert(1);
+body {
+  font-family: "Noto Sans", sans-serif;
 }
 
 .main {

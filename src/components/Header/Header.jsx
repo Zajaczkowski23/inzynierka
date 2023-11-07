@@ -14,18 +14,30 @@ function Header() {
       <div className="header__flex">
         <div className="header__item">
           <button className="header__btn">
-            <img src={searchIcon} alt="search players and clubs" />
+            <img
+              className="header__img"
+              src={searchIcon}
+              alt="search players and clubs"
+            />
           </button>
         </div>
         <div className="header__item">
           <button className="header__btn">
-            <img src={loginIcon} alt="Button for your login account" />
+            <img
+              className="header__img"
+              src={loginIcon}
+              alt="Button for your login account"
+            />
             <span>Login</span>
           </button>
         </div>
         <div className="header__item">
           <button className="header__btn">
-            <img src={menuIcon} alt="Button for your menu" />
+            <img
+              className="header__img"
+              src={menuIcon}
+              alt="Button for your menu"
+            />
           </button>
         </div>
       </div>

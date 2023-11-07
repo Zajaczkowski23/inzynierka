@@ -1,0 +1,38 @@
+div {
+  color: var(--white);
+}
+
+.nav__leagues__title {
+  display: flex;
+  align-items: center;
+}
+
+.nav__btn {
+  background-color: inherit;
+  border: none;
+}
+
+.nav__svg {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.nav__leagues__item {
+  margin: 0.6rem 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.nav__flag {
+  width: 15px;
+}
+
+.nav-fav-club {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.nav-fav-club span {
+  cursor: pointer;
+}
