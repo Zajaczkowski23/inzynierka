@@ -26,7 +26,7 @@ function AllMatches() {
         const [tournamentName, categoryName] = key.split("_");
 
         return (
-          <div key={key}>
+          <div key={key} className="all-matches-section">
             <h3>{categoryName}</h3>
             <h2>{tournamentName}</h2>
 

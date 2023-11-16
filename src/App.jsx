@@ -7,7 +7,7 @@ function App() {
   return (
     <main className="main">
       <Header />
-      <div className="flex">
+      <div className="main__flex">
         <Nav />
         <AllMatches />
       </div>
