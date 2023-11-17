@@ -50,6 +50,22 @@ function AllMatches() {
                       <div className="data-section__start-match">
                         <div className="data-section__start-time">{`${hours}:${minutes}`}</div>
                       </div>
+                      <div className="data-section__flags">
+                        <img
+                          src={
+                            matchInfo.homeTeam.country.alpha2 === "EN"
+                              ? `https://flagcdn.com/24x18/gb-eng.png`
+                              : `https://flagcdn.com/24x18/${matchInfo.homeTeam.country.alpha2.toLowerCase()}.png`
+                          }
+                        />
+                        <img
+                          src={
+                            matchInfo.awayTeam.country.alpha2 === "EN"
+                              ? `https://flagcdn.com/24x18/gb-eng.png`
+                              : `https://flagcdn.com/24x18/${matchInfo.awayTeam.country.alpha2.toLowerCase()}.png`
+                          }
+                        />
+                      </div>
                       <div className="data-section__teams">
                         <div className="team">{matchInfo.homeTeam.name}</div>
                         <div className="team">{matchInfo.awayTeam.name}</div>

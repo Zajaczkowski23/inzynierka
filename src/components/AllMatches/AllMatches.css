@@ -6,3 +6,8 @@
 .all-matches-section {
   margin-left: 2rem;
 }
+
+.data-section__flags {
+  display: flex;
+  flex-direction: column;
+}
