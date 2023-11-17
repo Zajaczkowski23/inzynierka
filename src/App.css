@@ -1,5 +1,5 @@
 .main__flex {
   display: flex;
   width: 1400px;
-  margin: 2rem auto;
+  margin: 2rem auto 0;
 }

@@ -20,4 +20,5 @@ body {
 
 .main {
   background-color: var(--main-background-color);
+  height: 100%;
 }

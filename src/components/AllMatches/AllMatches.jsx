@@ -1,9 +1,12 @@
+import { useState } from "react";
 import useFetch from "../../hooks/fetchDataHook";
 import "./AllMatches.css";
 
 function AllMatches() {
   const api = "http://localhost:3000/events";
   const { data } = useFetch(api);
+
+  const [showAllMatches, setShowAllMatches] = useState(false);
 
   // Group matches by both tournament name and category name
   const groupedMatches = {};
@@ -22,9 +25,9 @@ function AllMatches() {
 
   return (
     <div className="data-section">
-      {Object.keys(groupedMatches).map((key) => {
+      {Object.keys(groupedMatches).map((key, index) => {
         const [tournamentName, categoryName] = key.split("_");
-
+        if (!showAllMatches && index >= 10) return null;
         return (
           <div key={key} className="all-matches-section">
             <h3>{categoryName}</h3>
@@ -67,6 +70,11 @@ function AllMatches() {
           </div>
         );
       })}
+      {Object.keys(groupedMatches).length >= 10 && !showAllMatches && (
+        <button onClick={() => setShowAllMatches(true)}>
+          Show All Matches
+        </button>
+      )}
     </div>
   );
 }
