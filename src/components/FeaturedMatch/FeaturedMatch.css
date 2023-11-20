@@ -1,0 +1,8 @@
+.featured__flex {
+  display: flex;
+  align-items: center;
+}
+
+.featured__score {
+  display: flex;
+}
