@@ -1,5 +1,6 @@
 .main__flex {
   display: flex;
-  width: 1400px;
+  width: 1344px;
   margin: 2rem auto 0;
+  column-gap: 24px;
 }

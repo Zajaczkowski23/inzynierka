@@ -1,0 +1,27 @@
+.filters {
+  margin-bottom: 1rem;
+}
+
+.filters-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.filters-list li {
+  margin-right: 0.7rem;
+}
+
+.filters-list li button {
+  padding: 7px 15px;
+  border-radius: 5px;
+  font-size: 12px;
+  border: none;
+  color: #fff;
+  background-color: #0f2d37;
+  cursor: pointer;
+}
+
+.active {
+  background-color: red !important;
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useFetch from "../../hooks/fetchDataHook";
 import "./AllMatches.css";
+import FilterList from "../FilterList/FilterList";
 
 function AllMatches() {
   const api = "http://localhost:3000/events";
@@ -25,6 +26,7 @@ function AllMatches() {
 
   return (
     <div className="data-section">
+      <FilterList />
       {Object.keys(groupedMatches).map((key, index) => {
         const [tournamentName, categoryName] = key.split("_");
         if (!showAllMatches && index >= 10) return null;
