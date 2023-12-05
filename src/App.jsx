@@ -1,23 +1,16 @@
 import "./App.css";
-import AllMatches from "./components/AllMatches/AllMatches";
-import CalendarComponent from "./components/CalendarComponent/CalendarComponent";
-import FeaturedMatch from "./components/FeaturedMatch/FeaturedMatch";
-import Header from "./components/Header/Header";
-import Nav from "./components/Nav/Nav";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import News from "./pages/News";
 
 function App() {
   return (
-    <main className="main">
-      <Header />
-      <div className="main__flex">
-        <div>
-          <CalendarComponent />
-          <Nav />
-        </div>
-        <AllMatches />
-        <FeaturedMatch />
-      </div>
-    </main>
+    <Router>
+      <Routes>
+        <Route path="/" Component={Home}></Route>
+        <Route path="/news" Component={News}></Route>
+      </Routes>
+    </Router>
   );
 }
 

@@ -8,9 +8,14 @@ function AllMatches() {
   const { data } = useFetch(api);
 
   const [showAllMatches, setShowAllMatches] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState("All");
 
-  // Group matches by both tournament name and category name
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter);
+  };
+
   const groupedMatches = {};
+
   if (data) {
     data.forEach((matchInfo) => {
       const tournamentName = matchInfo.tournament.name;
@@ -24,10 +29,32 @@ function AllMatches() {
     });
   }
 
+  const filteredMatches = Object.keys(groupedMatches)
+    .filter((key) => {
+      if (selectedFilter === "All") {
+        return true;
+      }
+
+      const matchesForFilter = groupedMatches[key];
+      const typeMap = {
+        All: true,
+        Live: "inprogress",
+        Finished: "finished",
+        Scheduled: "notstarted",
+      };
+
+      return matchesForFilter.some((matchInfo) => {
+        return typeMap[selectedFilter]
+          ? matchInfo.status.type === typeMap[selectedFilter]
+          : false;
+      });
+    })
+    .slice(0, showAllMatches ? undefined : 10);
+
   return (
     <div className="data-section">
-      <FilterList />
-      {Object.keys(groupedMatches).map((key, index) => {
+      <FilterList onFilterChange={handleFilterChange} />
+      {filteredMatches.map((key, index) => {
         const [tournamentName, categoryName] = key.split("_");
         if (!showAllMatches && index >= 10) return null;
         return (
@@ -36,7 +63,6 @@ function AllMatches() {
             <h2>{tournamentName}</h2>
 
             {groupedMatches[key].map((matchInfo) => {
-              // Convert timestamp to a human-readable time
               const convertTime = new Date(matchInfo.startTimestamp * 1000);
               const hours = convertTime.getUTCHours();
               let minutes = convertTime.getUTCMinutes();

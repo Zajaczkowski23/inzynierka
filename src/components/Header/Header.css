@@ -24,6 +24,11 @@
   margin-left: 1rem;
 }
 
+.header__link {
+  text-decoration: none;
+  color: #fff;
+}
+
 .header__item {
   margin-left: 0.6rem;
 }
@@ -49,4 +54,9 @@
 
 .header__img {
   filter: invert(1);
+}
+
+.active__link {
+  border: none;
+  border-bottom: 1px solid red;
 }

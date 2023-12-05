@@ -1,0 +1,12 @@
+.news-section {
+  background-color: #00141e;
+}
+
+.news__container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 1344px;
+  margin: 0 auto;
+  padding: 25px 0;
+}
