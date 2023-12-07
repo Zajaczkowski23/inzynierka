@@ -5,12 +5,35 @@
   width: 540px;
 }
 
+.data-section__group {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.data-section__country {
+  padding: 5px;
+}
+
+.data-section__country:hover {
+  border-radius: 2px;
+  background-color: rgba(153, 153, 153, 0.2);
+}
+
 .data-section__match-info {
   display: flex;
   align-items: center;
 }
 
+.data-section__start-time {
+  margin-right: 1rem;
+}
+
 .data-section__flags {
   display: flex;
   flex-direction: column;
+  margin-right: 0.5rem;
+}
+
+.data-section__teams {
+  margin-right: auto;
 }

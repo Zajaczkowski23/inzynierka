@@ -2,15 +2,17 @@ import useFetch from "../../hooks/fetchDataHook";
 import "./FeaturedMatch.css";
 
 function FeaturedMatch() {
-  const api = "http://localhost:3000/events";
+  const api =
+    "https://api.sofascore.com/api/v1/sport/football/scheduled-events/2023-12-07";
   const { data } = useFetch(api);
   let featuredMatch;
 
   if (data) {
-    const randomIndex = data[Math.floor(Math.random() * data.length)];
+    const randomIndex =
+      data.events[Math.floor(Math.random() * data.events.length)];
     const randomId = randomIndex.id;
 
-    featuredMatch = data.find(
+    featuredMatch = data.events.find(
       (match) =>
         (match.id === randomId && match.status.code !== 100) ||
         match.status.code !== 0

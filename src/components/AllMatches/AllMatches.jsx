@@ -1,14 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "../../hooks/fetchDataHook";
 import "./AllMatches.css";
 import FilterList from "../FilterList/FilterList";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function AllMatches() {
-  const api = "http://localhost:3000/events";
-  const { data } = useFetch(api);
+function AllMatches({ selectedDate }) {
+  const getFormattedDate = () => {
+    const year = selectedDate.getFullYear();
+    const month = (selectedDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = selectedDate.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+  const [formattedDate, setFormattedDate] = useState(getFormattedDate());
 
   const [showAllMatches, setShowAllMatches] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("All");
+
+  useEffect(() => {
+    setFormattedDate(getFormattedDate());
+    console.log(getFormattedDate());
+  }, [selectedDate]);
+
+  const api = `https://api.sofascore.com/api/v1/sport/football/scheduled-events/${formattedDate}`;
+  const { data } = useFetch(api);
 
   const handleFilterChange = (filter) => {
     setSelectedFilter(filter);
@@ -17,7 +32,7 @@ function AllMatches() {
   const groupedMatches = {};
 
   if (data) {
-    data.forEach((matchInfo) => {
+    data.events.forEach((matchInfo) => {
       const tournamentName = matchInfo.tournament.name;
       const categoryName = matchInfo.tournament.category.name;
       const key = `${tournamentName}_${categoryName}`;
@@ -29,27 +44,25 @@ function AllMatches() {
     });
   }
 
-  const filteredMatches = Object.keys(groupedMatches)
-    .filter((key) => {
-      if (selectedFilter === "All") {
-        return true;
-      }
+  const filteredMatches = Object.keys(groupedMatches).filter((key) => {
+    if (selectedFilter === "All") {
+      return true;
+    }
 
-      const matchesForFilter = groupedMatches[key];
-      const typeMap = {
-        All: true,
-        Live: "inprogress",
-        Finished: "finished",
-        Scheduled: "notstarted",
-      };
+    const matchesForFilter = groupedMatches[key];
+    const typeMap = {
+      All: true,
+      Live: "inprogress",
+      Finished: "finished",
+      Scheduled: "notstarted",
+    };
 
-      return matchesForFilter.some((matchInfo) => {
-        return typeMap[selectedFilter]
-          ? matchInfo.status.type === typeMap[selectedFilter]
-          : false;
-      });
-    })
-    .slice(0, showAllMatches ? undefined : 10);
+    return matchesForFilter.some((matchInfo) => {
+      return typeMap[selectedFilter]
+        ? matchInfo.status.type === typeMap[selectedFilter]
+        : false;
+    });
+  });
 
   return (
     <div className="data-section">
@@ -72,7 +85,11 @@ function AllMatches() {
               }
 
               return (
-                <div className="data-section__group" key={matchInfo.customId}>
+                <Link
+                  className="data-section__group"
+                  key={matchInfo.customId}
+                  to={`/matches/${matchInfo.id}`}
+                >
                   <div className="data-section__country">
                     <div className="data-section__match-info">
                       <div className="data-section__start-match">
@@ -108,7 +125,7 @@ function AllMatches() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -122,5 +139,9 @@ function AllMatches() {
     </div>
   );
 }
+
+AllMatches.propTypes = {
+  selectedDate: PropTypes.any.isRequired,
+};
 
 export default AllMatches;

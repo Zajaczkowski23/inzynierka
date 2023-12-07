@@ -1,14 +1,20 @@
 import { useState } from "react";
 import Calendar from "react-calendar";
 import "./CalendarComponent.css";
+import PropTypes from "prop-types";
 
-function CalendarComponent() {
-  const [value, onChange] = useState(new Date());
+function CalendarComponent({ onChange }) {
+  const [value, setValue] = useState(new Date());
+
+  const handleDateChange = (newValue) => {
+    setValue(newValue);
+    onChange(newValue);
+  };
 
   return (
     <div>
       <Calendar
-        onChange={onChange}
+        onChange={handleDateChange}
         value={value}
         className={"calendar"}
         locale="en-EN"
@@ -19,5 +25,9 @@ function CalendarComponent() {
     </div>
   );
 }
+
+CalendarComponent.propTypes = {
+  onChange: PropTypes.func.isRequired,
+};
 
 export default CalendarComponent;

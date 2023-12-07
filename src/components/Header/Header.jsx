@@ -9,7 +9,6 @@ function Header() {
   const [active, setActive] = useState("Scores");
 
   const changeActiveLink = (link) => {
-    console.log(link);
     link === "Scores" ? setActive("Scores") : setActive("News");
   };
 
@@ -31,7 +30,7 @@ function Header() {
           onClick={() => changeActiveLink("Scores")}
         >
           <Link
-            to="/"
+            to="/matches"
             className={`header__link ${
               active === "Scores" ? "active__link" : ""
             }`}
