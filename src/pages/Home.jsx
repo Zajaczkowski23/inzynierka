@@ -5,6 +5,7 @@ import FeaturedMatch from "../components/FeaturedMatch/FeaturedMatch";
 // import FeaturedMatch from "../components/FeaturedMatch/FeaturedMatch";
 import Header from "../components/Header/Header";
 import Nav from "../components/Nav/Nav";
+import BestPlayers from "../components/BestPlayers/BestPlayers";
 
 const Home = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -18,7 +19,10 @@ const Home = () => {
           <Nav />
         </div>
         <AllMatches selectedDate={selectedDate} />
-        <FeaturedMatch />
+        <div>
+          <FeaturedMatch />
+          <BestPlayers />
+        </div>
       </div>
     </main>
   );

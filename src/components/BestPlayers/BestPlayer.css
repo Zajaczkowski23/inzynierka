@@ -1,0 +1,15 @@
+.best-player {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.best-player-avatar {
+  width: 40px;
+  border-radius: 100%;
+  margin: 0 1rem;
+}
+
+.best-player-info {
+  margin-right: auto;
+}

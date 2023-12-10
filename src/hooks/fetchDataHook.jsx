@@ -17,7 +17,7 @@ const useFetch = (options) => {
         console.error(err);
       }
     })();
-  });
+  }, [options]);
 
   return { data, loading, error };
 };

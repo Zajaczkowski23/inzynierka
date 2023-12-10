@@ -19,7 +19,6 @@ function AllMatches({ selectedDate }) {
 
   useEffect(() => {
     setFormattedDate(getFormattedDate());
-    console.log(getFormattedDate());
   }, [selectedDate]);
 
   const api = `https://api.sofascore.com/api/v1/sport/football/scheduled-events/${formattedDate}`;
@@ -97,18 +96,10 @@ function AllMatches({ selectedDate }) {
                       </div>
                       <div className="data-section__flags">
                         <img
-                          src={
-                            matchInfo.homeTeam.country.alpha2 === "EN"
-                              ? `https://flagcdn.com/24x18/gb-eng.png`
-                              : `https://flagcdn.com/24x18/${matchInfo.homeTeam.country.alpha2.toLowerCase()}.png`
-                          }
+                          src={`https://api.sofascore.app/api/v1/team/${matchInfo.homeTeam.id}/image/small`}
                         />
                         <img
-                          src={
-                            matchInfo.awayTeam.country.alpha2 === "EN"
-                              ? `https://flagcdn.com/24x18/gb-eng.png`
-                              : `https://flagcdn.com/24x18/${matchInfo.awayTeam.country.alpha2.toLowerCase()}.png`
-                          }
+                          src={`https://api.sofascore.app/api/v1/team/${matchInfo.awayTeam.id}/image/small`}
                         />
                       </div>
                       <div className="data-section__teams">
