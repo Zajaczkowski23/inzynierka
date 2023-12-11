@@ -1,7 +1,8 @@
 import useFetch from "../../hooks/fetchDataHook";
 import "./FeaturedMatch.css";
 
-function FeaturedMatch() {
+function FeaturedMatch({ date }) {
+  const currentDate = new Date();
   const api =
     "https://api.sofascore.com/api/v1/sport/football/scheduled-events/2023-12-07";
   const { data } = useFetch(api);

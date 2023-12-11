@@ -13,7 +13,7 @@ function AllMatches({ selectedDate }) {
     return `${year}-${month}-${day}`;
   };
   const [formattedDate, setFormattedDate] = useState(getFormattedDate());
-
+  const [selectedSeasonId, setSelectedSeasonId] = useState(null);
   const [showAllMatches, setShowAllMatches] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("All");
 
@@ -71,9 +71,18 @@ function AllMatches({ selectedDate }) {
         if (!showAllMatches && index >= 10) return null;
         return (
           <div key={key} className="all-matches-section">
-            <h3>{categoryName}</h3>
-            <h2>{tournamentName}</h2>
-
+            <div className="all-matches-league-info">
+              <div className="league-info">
+                <h3>{categoryName}</h3>
+                <h2>{tournamentName}</h2>
+              </div>
+              <Link
+                to={`/standings/${selectedSeasonId}`}
+                onClick={() => setSelectedSeasonId()}
+              >
+                Standings
+              </Link>
+            </div>
             {groupedMatches[key].map((matchInfo) => {
               const convertTime = new Date(matchInfo.startTimestamp * 1000);
               const hours = convertTime.getUTCHours();
@@ -123,8 +132,9 @@ function AllMatches({ selectedDate }) {
         );
       })}
       {Object.keys(groupedMatches).length >= 10 && !showAllMatches && (
-        <button onClick={() => setShowAllMatches(true)}>
-          Show All Matches
+        <button className="btn" onClick={() => setShowAllMatches(true)}>
+          Show More
+          <span className="material-symbols-outlined">expand_more</span>
         </button>
       )}
     </div>

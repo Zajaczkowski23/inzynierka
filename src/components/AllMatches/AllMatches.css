@@ -10,6 +10,12 @@
   text-decoration: none;
 }
 
+.all-matches-league-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .data-section__country {
   padding: 5px;
 }

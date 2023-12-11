@@ -22,3 +22,16 @@ body {
   background-color: var(--main-background-color);
   height: 100%;
 }
+
+.btn {
+  display: flex;
+  align-items: center;
+  background-color: inherit;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.match-detail-container {
+  background-color: #00141e;
+}

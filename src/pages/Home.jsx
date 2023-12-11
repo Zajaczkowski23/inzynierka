@@ -20,7 +20,7 @@ const Home = () => {
         </div>
         <AllMatches selectedDate={selectedDate} />
         <div>
-          <FeaturedMatch />
+          <FeaturedMatch date={selectedDate} />
           <BestPlayers />
         </div>
       </div>

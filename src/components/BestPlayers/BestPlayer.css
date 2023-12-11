@@ -13,3 +13,8 @@
 .best-player-info {
   margin-right: auto;
 }
+
+.display {
+  display: flex;
+  justify-content: flex-end;
+}

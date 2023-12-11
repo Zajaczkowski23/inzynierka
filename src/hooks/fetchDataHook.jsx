@@ -18,7 +18,6 @@ const useFetch = (options) => {
       }
     })();
   }, [options]);
-
   return { data, loading, error };
 };
 
