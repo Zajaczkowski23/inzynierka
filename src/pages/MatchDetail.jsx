@@ -1,6 +1,9 @@
 import Header from "../components/Header/Header";
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/fetchDataHook";
+import Stats from "../components/Stats/Stats";
+import Result from "../components/Stats/Result/Result";
+import FilterList from "../components/FilterList/FilterList";
 
 const MatchDetail = () => {
   const { id } = useParams();
@@ -9,26 +12,15 @@ const MatchDetail = () => {
     `https://api.sofascore.com/api/v1/event/${id}/lineups`
   );
 
-  const { data: incidentsData } = useFetch(
-    `https://api.sofascore.com/api/v1/event/${id}/incidents`
-  );
+  const filters = ["Summary", "Stats", "Lineups"];
 
-  console.log(incidentsData);
   return (
     <div>
       <Header />
       <div className="match-detail-container">
-        {incidentsData &&
-          incidentsData.incidents.map((incident) => {
-            if (incident.reason) {
-              return (
-                <div key={incident.id}>
-                  <div className="reason">{incident.reason}</div>
-                  <div className="player">{incident.player.name}</div>
-                </div>
-              );
-            }
-          })}
+        <Result id={id} />
+        <FilterList filters={filters} />
+        <Stats id={id} />
       </div>
     </div>
   );

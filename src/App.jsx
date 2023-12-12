@@ -1,5 +1,10 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import News from "./pages/News";
 import MatchDetail from "./pages/MatchDetail";
@@ -13,6 +18,7 @@ function App() {
         <Route path="/news" Component={News}></Route>
         <Route path="/matches/:id" Component={MatchDetail}></Route>
         <Route path="/standings/:id" Component={LeagueStanding}></Route>
+        <Route path="*" element={<Navigate to="/matches" replace />} />
       </Routes>
     </Router>
   );

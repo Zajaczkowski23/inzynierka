@@ -1,0 +1,47 @@
+.incidents-info {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.home {
+  justify-content: flex-start;
+}
+
+.away {
+  flex-direction: row-reverse;
+}
+
+.time-end {
+  justify-content: center;
+}
+
+.time {
+  margin-right: 0.4rem;
+}
+
+.reason {
+  color: #ccc;
+  margin-right: 0.5rem;
+  font-size: 14px;
+}
+
+.player {
+  margin-left: 0.4rem;
+}
+
+.player-assist {
+  color: #ccc;
+  margin-left: 0.4rem;
+  font-size: 12px;
+}
+
+.player-out {
+  margin-left: 0.4rem;
+  color: #ccc;
+  font-size: 12px;
+}
+
+.score {
+  margin-left: 0.4rem;
+}

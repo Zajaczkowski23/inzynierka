@@ -23,7 +23,9 @@ function Header() {
 
   return (
     <div className="header">
-      <h1 className="header__logo">LiveScore</h1>
+      <Link to="/matches" className="header__logo">
+        LiveScore
+      </Link>
       <div className="header__flex">
         <div
           className="header__big-item"

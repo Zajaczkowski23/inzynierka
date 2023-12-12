@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.result {
+  font-size: 32px;
+}
+
+.container img {
+  width: 100px;
+  margin: 0 25px;
+}

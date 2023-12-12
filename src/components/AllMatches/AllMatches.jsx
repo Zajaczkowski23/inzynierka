@@ -65,7 +65,10 @@ function AllMatches({ selectedDate }) {
 
   return (
     <div className="data-section">
-      <FilterList onFilterChange={handleFilterChange} />
+      <FilterList
+        onFilterChange={handleFilterChange}
+        filters={["All", "Live", "Finished", "Scheduled"]}
+      />
       {filteredMatches.map((key, index) => {
         const [tournamentName, categoryName] = key.split("_");
         if (!showAllMatches && index >= 10) return null;
