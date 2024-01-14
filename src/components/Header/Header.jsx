@@ -1,88 +1,41 @@
 import searchIcon from "../../assets/search.svg";
 import loginIcon from "../../assets/account.svg";
-import menuIcon from "../../assets/menu.svg";
+import Logo from "../../assets/Logo.svg";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import SearchIcon from "@mui/icons-material/Search";
 
 function Header() {
-  const [active, setActive] = useState("Scores");
-
-  const changeActiveLink = (link) => {
-    link === "Scores" ? setActive("Scores") : setActive("News");
-  };
-
-  useEffect(() => {
-    const path = location.pathname;
-    if (path === "/") {
-      setActive("Scores");
-    } else if (path === "/news") {
-      setActive("News");
-    }
-  }, []);
-
   return (
     <div className="header">
       <Link to="/matches" className="header__logo">
-        LiveScore
+        <img src={Logo} alt="Logo of the page" />
+        ScoreLive
       </Link>
-      <div className="header__flex">
-        <div
-          className="header__big-item"
-          onClick={() => changeActiveLink("Scores")}
-        >
-          <Link
-            to="/matches"
-            className={`header__link ${
-              active === "Scores" ? "active__link" : ""
-            }`}
-          >
-            Scores
-          </Link>
-        </div>
-        <div
-          className="header__big-item"
-          onClick={() => changeActiveLink("News")}
-        >
-          <Link
-            to="/news"
-            className={`header__link ${
-              active === "News" ? "active__link" : ""
-            }`}
-          >
-            News
-          </Link>
-        </div>
-      </div>
-      <div className="header__flex">
-        <div className="header__item">
-          <button className="header__btn">
-            <img
-              className="header__img"
-              src={searchIcon}
-              alt="search players and clubs"
-            />
-          </button>
-        </div>
-        <div className="header__item">
-          <button className="header__btn">
-            <img
-              className="header__img"
-              src={loginIcon}
-              alt="Button for your login account"
-            />
-            <span>Login</span>
-          </button>
-        </div>
-        <div className="header__item">
-          <button className="header__btn">
-            <img
-              className="header__img"
-              src={menuIcon}
-              alt="Button for your menu"
-            />
-          </button>
-        </div>
+      <TextField
+        label="Search"
+        variant="outlined"
+        size="small"
+        sx={{ width: 600 }}
+        InputProps={{
+          endAdornment: (
+            <IconButton>
+              <SearchIcon />
+            </IconButton>
+          ),
+        }}
+      />
+      <div className="header__item">
+        <button className="header__btn">
+          <img
+            className="header__img"
+            src={loginIcon}
+            alt="Button for your login account"
+          />
+        </button>
       </div>
     </div>
   );

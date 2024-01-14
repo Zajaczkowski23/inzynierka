@@ -4,6 +4,7 @@ import useFetch from "../hooks/fetchDataHook";
 import Stats from "../components/Stats/Stats";
 import Result from "../components/Stats/Result/Result";
 import FilterList from "../components/FilterList/FilterList";
+import Sidebar from "../components/Side-bar/Sidebar";
 
 const MatchDetail = () => {
   const { id } = useParams();
@@ -12,14 +13,12 @@ const MatchDetail = () => {
     `https://api.sofascore.com/api/v1/event/${id}/lineups`
   );
 
-  const filters = ["Summary", "Stats", "Lineups"];
-
   return (
     <div>
       <Header />
+      <Sidebar />
       <div className="match-detail-container">
         <Result id={id} />
-        <FilterList filters={filters} />
         <Stats id={id} />
       </div>
     </div>

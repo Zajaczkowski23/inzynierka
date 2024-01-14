@@ -135,8 +135,11 @@ function AllMatches({ selectedDate }) {
         );
       })}
       {Object.keys(groupedMatches).length >= 10 && !showAllMatches && (
-        <button className="btn" onClick={() => setShowAllMatches(true)}>
-          Show More
+        <button
+          className="btn btn-matches"
+          onClick={() => setShowAllMatches(true)}
+        >
+          Show All Matches
           <span className="material-symbols-outlined">expand_more</span>
         </button>
       )}

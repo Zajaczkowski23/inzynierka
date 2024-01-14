@@ -11,6 +11,7 @@ const BestPlayers = () => {
 
   return (
     <div className="best-player-section">
+      <h3>Best Players</h3>
       {data &&
         data.topPlayers.map((player, idx) => {
           if (!showAllPlayers && idx >= 5) return null;

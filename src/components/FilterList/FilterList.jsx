@@ -30,6 +30,7 @@ const FilterList = ({ onFilterChange, filters }) => {
 
 FilterList.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
+  filters: PropTypes.array.isRequired,
 };
 
 export default FilterList;

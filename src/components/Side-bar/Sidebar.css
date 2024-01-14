@@ -1,0 +1,41 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px;
+  position: fixed;
+  height: 100%;
+  border-right: 1px solid #d3d3d3;
+  top: 0;
+  left: 0;
+  z-index: 200;
+}
+
+.sidebar img {
+  cursor: pointer;
+}
+
+.sidebar-icons {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-icons img {
+  margin: 16px 0px;
+}
+
+.sidebar-menu {
+  margin-top: 24px;
+  margin-bottom: 72px;
+}
+
+.sidebar-mode {
+  margin-top: auto;
+  margin-bottom: 24px;
+}
+
+.vector {
+  width: 24px;
+  height: 2px;
+  background-color: #a4a4a4;
+  margin: 54px 0;
+}

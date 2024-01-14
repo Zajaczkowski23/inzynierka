@@ -1,14 +1,14 @@
 @import "react-calendar/dist/Calendar.css";
 
 .calendar {
-  background-color: #1c2632;
+  background-color: var(--white);
   border: none;
   border-radius: 10px;
   margin-bottom: 25px;
 }
 
 .react-calendar__tile {
-  color: #fff;
+  color: #000;
   border-radius: 100%;
   padding: 8px;
 }
@@ -23,11 +23,11 @@
 
 .react-calendar__navigation__label:disabled {
   background-color: inherit !important;
-  color: #fff;
+  color: #000;
 }
 
 .react-calendar__navigation__arrow {
-  color: #fff;
+  color: #000;
   font-size: 16px;
 }
 
