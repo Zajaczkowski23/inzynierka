@@ -1,9 +1,7 @@
-import searchIcon from "../../assets/search.svg";
 import loginIcon from "../../assets/account.svg";
 import Logo from "../../assets/Logo.svg";
 import "./Header.css";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";

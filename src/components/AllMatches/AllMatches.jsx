@@ -4,6 +4,7 @@ import "./AllMatches.css";
 import FilterList from "../FilterList/FilterList";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function AllMatches({ selectedDate }) {
   const getFormattedDate = () => {
@@ -24,24 +25,26 @@ function AllMatches({ selectedDate }) {
   const api = `https://api.sofascore.com/api/v1/sport/football/scheduled-events/${formattedDate}`;
   const { data } = useFetch(api);
 
+  if (!data) {
+    return <CircularProgress />;
+  }
+
   const handleFilterChange = (filter) => {
     setSelectedFilter(filter);
   };
 
   const groupedMatches = {};
 
-  if (data) {
-    data.events.forEach((matchInfo) => {
-      const tournamentName = matchInfo.tournament.name;
-      const categoryName = matchInfo.tournament.category.name;
-      const key = `${tournamentName}_${categoryName}`;
+  data.events.forEach((matchInfo) => {
+    const tournamentName = matchInfo.tournament.name;
+    const categoryName = matchInfo.tournament.category.name;
+    const key = `${tournamentName}_${categoryName}`;
 
-      if (!groupedMatches[key]) {
-        groupedMatches[key] = [];
-      }
-      groupedMatches[key].push(matchInfo);
-    });
-  }
+    if (!groupedMatches[key]) {
+      groupedMatches[key] = [];
+    }
+    groupedMatches[key].push(matchInfo);
+  });
 
   const filteredMatches = Object.keys(groupedMatches).filter((key) => {
     if (selectedFilter === "All") {
@@ -109,9 +112,11 @@ function AllMatches({ selectedDate }) {
                       <div className="data-section__flags">
                         <img
                           src={`https://api.sofascore.app/api/v1/team/${matchInfo.homeTeam.id}/image/small`}
+                          alt={`${matchInfo.homeTeam.name} logo`}
                         />
                         <img
                           src={`https://api.sofascore.app/api/v1/team/${matchInfo.awayTeam.id}/image/small`}
+                          alt={`${matchInfo.awayTeam.name} logo`}
                         />
                       </div>
                       <div className="data-section__teams">
