@@ -92,49 +92,52 @@ function AllMatches({ selectedDate }) {
             {groupedMatches[key].map((matchInfo) => {
               const convertTime = new Date(matchInfo.startTimestamp * 1000);
               const hours = convertTime.getUTCHours();
+              const day = convertTime.getDate();
               let minutes = convertTime.getUTCMinutes();
 
               if (minutes === 0) {
                 minutes = "00";
               }
 
-              return (
-                <Link
-                  className="data-section__group"
-                  key={matchInfo.customId}
-                  to={`/matches/${matchInfo.id}`}
-                >
-                  <div className="data-section__country">
-                    <div className="data-section__match-info">
-                      <div className="data-section__start-match">
-                        <div className="data-section__start-time">{`${hours}:${minutes}`}</div>
-                      </div>
-                      <div className="data-section__flags">
-                        <img
-                          src={`https://api.sofascore.app/api/v1/team/${matchInfo.homeTeam.id}/image/small`}
-                          alt={`${matchInfo.homeTeam.name} logo`}
-                        />
-                        <img
-                          src={`https://api.sofascore.app/api/v1/team/${matchInfo.awayTeam.id}/image/small`}
-                          alt={`${matchInfo.awayTeam.name} logo`}
-                        />
-                      </div>
-                      <div className="data-section__teams">
-                        <div className="team">{matchInfo.homeTeam.name}</div>
-                        <div className="team">{matchInfo.awayTeam.name}</div>
-                      </div>
-                      <div className="data-section__score">
-                        <div className="score">
-                          {matchInfo.homeScore.current}
+              if (selectedDate.getDate() === day) {
+                return (
+                  <Link
+                    className="data-section__group"
+                    key={matchInfo.customId}
+                    to={`/matches/${matchInfo.id}`}
+                  >
+                    <div className="data-section__country">
+                      <div className="data-section__match-info">
+                        <div className="data-section__start-match">
+                          <div className="data-section__start-time">{`${hours}:${minutes}`}</div>
                         </div>
-                        <div className="score">
-                          {matchInfo.awayScore.current}
+                        <div className="data-section__flags">
+                          <img
+                            src={`https://api.sofascore.app/api/v1/team/${matchInfo.homeTeam.id}/image/small`}
+                            alt={`${matchInfo.homeTeam.name} logo`}
+                          />
+                          <img
+                            src={`https://api.sofascore.app/api/v1/team/${matchInfo.awayTeam.id}/image/small`}
+                            alt={`${matchInfo.awayTeam.name} logo`}
+                          />
+                        </div>
+                        <div className="data-section__teams">
+                          <div className="team">{matchInfo.homeTeam.name}</div>
+                          <div className="team">{matchInfo.awayTeam.name}</div>
+                        </div>
+                        <div className="data-section__score">
+                          <div className="score">
+                            {matchInfo.homeScore.current}
+                          </div>
+                          <div className="score">
+                            {matchInfo.awayScore.current}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              );
+                  </Link>
+                );
+              }
             })}
           </div>
         );
