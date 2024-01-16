@@ -27,13 +27,13 @@ function Header() {
         }}
       />
       <div className="header__item">
-        <button className="header__btn">
+        <Link className="header__btn" to={"/account/login"}>
           <img
             className="header__img"
             src={loginIcon}
             alt="Button for your login account"
           />
-        </button>
+        </Link>
       </div>
     </div>
   );
