@@ -43,22 +43,29 @@ body {
   padding: 25px;
 }
 
-.login-page {
-  background-color: #8ac0ff;
+.account-page {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.login-container {
+.login-page {
+  background-color: #8ac0ff;
+}
+
+.register-page {
+  background-color: #fff0a0;
+}
+
+.account-container {
   background-color: var(--white);
   padding: 74px 100px;
   border-radius: 15px;
   width: 585px;
 }
 
-.login-text {
+.account-text {
   color: #545454;
 }
 
@@ -78,15 +85,16 @@ body {
   outline: none;
 }
 
-.login-link {
+.account-link {
   color: #8ac0ff;
   margin: 26px 0;
   width: 30%;
   font-size: 12px;
   cursor: pointer;
+  text-decoration: none;
 }
 
-.login-link:hover {
+.account-link:hover {
   color: #0366ff;
 }
 
@@ -105,6 +113,12 @@ body {
   opacity: 0.9;
 }
 
-.login-header {
+.account-header {
   margin-bottom: 10px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 0.5rem;
 }

@@ -1,23 +1,38 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
-const Form = ({ header, headerText, linkText, isLoggedIn, setIsLoggedIn }) => {
+const Form = ({ header, headerText, linkText, button, register }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordMatch, setPasswordMatch] = useState(true); // Set initial state to true
 
-  const loginUser = () => {
-    if (email.length > 0 && password.length > 0) {
-      setIsLoggedIn(true);
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (register) {
+      // Check if passwords match
+      if (password !== confirmPassword) {
+        setPasswordMatch(false);
+        return;
+      }
+      setPasswordMatch(true);
+      navigate("/matches");
     } else {
-      setIsLoggedIn(false);
+      if (password.length > 0 && email.length > 0) {
+        navigate("/matches");
+      }
     }
   };
 
   return (
-    <div className="login-container">
-      <h2 className="login-header">{header}</h2>
-      <p className="login-text">{headerText}</p>
+    <div className="account-container">
+      <h2 className="account-header">{header}</h2>
+      <p className="account-text">{headerText}</p>
       <form className="account-form">
         <input
           type="text"
@@ -33,14 +48,25 @@ const Form = ({ header, headerText, linkText, isLoggedIn, setIsLoggedIn }) => {
           className="account-input"
           placeholder="Password"
         />
-        <p className="login-link">{linkText}</p>
+        {register && (
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="account-input"
+            placeholder="Confirm Password"
+          />
+        )}
         <Link
-          className="form-btn"
-          onClick={() => loginUser()}
-          to={isLoggedIn ? "/matches" : "/account/login"}
+          to={register ? "/account/login" : "/account/register"}
+          className="account-link"
         >
-          Log In
+          {linkText}
         </Link>
+        <button type="submit" className="form-btn" onClick={handleSubmit}>
+          {button}
+        </button>
+        {!passwordMatch && <p className="error">Passwords do not match.</p>}
       </form>
     </div>
   );
@@ -50,8 +76,8 @@ Form.propTypes = {
   header: PropTypes.string,
   headerText: PropTypes.string,
   linkText: PropTypes.string,
-  isLoggedIn: PropTypes.bool,
-  setIsLoggedIn: PropTypes.func,
+  button: PropTypes.string,
+  register: PropTypes.bool,
 };
 
 export default Form;
