@@ -1,8 +1,24 @@
+.featured-title {
+  text-align: center;
+}
+
 .featured__flex {
   display: flex;
   align-items: center;
+  margin-top: 1rem;
 }
 
 .featured__score {
   display: flex;
+}
+
+.featured-team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.featured-team img {
+  width: 50px;
 }

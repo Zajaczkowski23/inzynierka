@@ -21,10 +21,14 @@ function FeaturedMatch({ date }) {
   }
   return (
     <div>
-      <h3>Featured Match</h3>
+      <h3 className="featured-title">Featured Match</h3>
       {featuredMatch && (
         <div className="featured__flex">
-          <div className="featured__home-team">
+          <div className="featured-team">
+            <img
+              src={`https://api.sofascore.app/api/v1/team/${featuredMatch.homeTeam.id}/image`}
+              alt={`${featuredMatch.homeTeam.name} logo`}
+            />
             {featuredMatch.homeTeam.name}
           </div>
           <div className="featured__score">
@@ -36,7 +40,11 @@ function FeaturedMatch({ date }) {
               {featuredMatch.awayScore.current}
             </div>
           </div>
-          <div className="featured__away-team">
+          <div className="featured-team">
+            <img
+              src={`https://api.sofascore.app/api/v1/team/${featuredMatch.awayTeam.id}/image`}
+              alt={`${featuredMatch.awayTeam.name} logo`}
+            />
             {featuredMatch.awayTeam.name}
           </div>
         </div>

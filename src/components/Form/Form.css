@@ -1,0 +1,71 @@
+.account-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-container {
+  background-color: var(--white);
+  padding: 74px 100px;
+  border-radius: 15px;
+  width: 585px;
+}
+
+.account-text {
+  color: #545454;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-input {
+  padding: 24px;
+  border-radius: 10px;
+  border: 1px solid #8ac0ff;
+  margin-top: 30px;
+}
+
+.account-input:focus {
+  outline: none;
+}
+
+.account-link {
+  color: #8ac0ff;
+  margin: 26px 0;
+  width: 30%;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.account-link:hover {
+  color: #0366ff;
+}
+
+.form-btn {
+  padding: 18px 0;
+  border-radius: 8px;
+  background-color: #0366ff;
+  border: none;
+  font-size: 18px;
+  color: var(--white);
+  text-align: center;
+  text-decoration: none;
+}
+
+.form-btn:hover {
+  opacity: 0.9;
+}
+
+.account-header {
+  margin-bottom: 10px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 0.5rem;
+}

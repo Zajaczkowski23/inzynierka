@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import "./Form.css";
 
 const Form = ({ header, headerText, linkText, button, register }) => {
   const [email, setEmail] = useState("");
