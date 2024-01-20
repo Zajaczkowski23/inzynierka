@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import "./Form.css";
+import Close from "../../assets/close.svg";
 
 const Form = ({ header, headerText, linkText, button, register }) => {
   const [email, setEmail] = useState("");
@@ -32,6 +33,13 @@ const Form = ({ header, headerText, linkText, button, register }) => {
 
   return (
     <div className="account-container">
+      <Link to={"/matches"}>
+        <img
+          src={Close}
+          alt="Close icon to go back to matches"
+          className="close"
+        />
+      </Link>
       <h2 className="account-header">{header}</h2>
       <p className="account-text">{headerText}</p>
       <form className="account-form">

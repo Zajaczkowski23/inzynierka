@@ -10,6 +10,18 @@
   padding: 74px 100px;
   border-radius: 15px;
   width: 585px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 25px;
+  left: 50px;
+  width: 30px;
+}
+
+.close:hover {
+  transform: scale(1.05);
 }
 
 .account-text {
