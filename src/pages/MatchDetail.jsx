@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import useFetch from "../hooks/fetchDataHook";
 import Stats from "../components/Stats/Stats";
 import Result from "../components/Stats/Result/Result";
-import FilterList from "../components/FilterList/FilterList";
 import Sidebar from "../components/Side-bar/Sidebar";
 
 const MatchDetail = () => {

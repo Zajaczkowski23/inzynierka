@@ -33,7 +33,7 @@ const Form = ({ header, headerText, linkText, button, register }) => {
 
   return (
     <div className="account-container">
-      <Link to={"/matches"}>
+      <Link to={register ? "/account/login" : "/matches"}>
         <img
           src={Close}
           alt="Close icon to go back to matches"

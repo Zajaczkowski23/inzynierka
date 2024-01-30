@@ -44,6 +44,7 @@ function AllMatches({ selectedDate }) {
       groupedMatches[key] = [];
     }
     groupedMatches[key].push(matchInfo);
+    console.log(groupedMatches);
   });
 
   const filteredMatches = Object.keys(groupedMatches).filter((key) => {
@@ -66,6 +67,15 @@ function AllMatches({ selectedDate }) {
     });
   });
 
+  const convertTime = (time) => {
+    const convertTime = new Date(time * 1000);
+    const hours = convertTime.getUTCHours();
+    const day = convertTime.getDate();
+    let minutes = convertTime.getUTCMinutes().toString().padStart(2, "0");
+
+    return { hours, day, minutes };
+  };
+
   return (
     <div className="data-section">
       <FilterList
@@ -73,6 +83,7 @@ function AllMatches({ selectedDate }) {
         filters={["All", "Live", "Finished", "Scheduled"]}
       />
       {filteredMatches.map((key, index) => {
+        console.log(key);
         const [tournamentName, categoryName] = key.split("_");
         if (!showAllMatches && index >= 10) return null;
         return (
@@ -90,10 +101,9 @@ function AllMatches({ selectedDate }) {
               </Link>
             </div>
             {groupedMatches[key].map((matchInfo) => {
-              const convertTime = new Date(matchInfo.startTimestamp * 1000);
-              const hours = convertTime.getUTCHours();
-              const day = convertTime.getDate();
-              let minutes = convertTime.getUTCMinutes();
+              let { hours, day, minutes } = convertTime(
+                matchInfo.startTimestamp
+              );
 
               if (minutes === 0) {
                 minutes = "00";
@@ -109,7 +119,9 @@ function AllMatches({ selectedDate }) {
                     <div className="data-section__country">
                       <div className="data-section__match-info">
                         <div className="data-section__start-match">
-                          <div className="data-section__start-time">{`${hours}:${minutes}`}</div>
+                          <div className="data-section__start-time">
+                            {`${hours}:${minutes}`}
+                          </div>
                         </div>
                         <div className="data-section__flags">
                           <img

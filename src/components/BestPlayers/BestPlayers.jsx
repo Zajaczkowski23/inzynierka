@@ -1,6 +1,8 @@
 import { useState } from "react";
 import useFetch from "../../hooks/fetchDataHook";
+import { Link } from "react-router-dom";
 import "./BestPlayer.css";
+import NoPhoto from "../../assets/no_photo.svg";
 
 const BestPlayers = () => {
   const api =
@@ -16,19 +18,26 @@ const BestPlayers = () => {
         data.topPlayers.map((player, idx) => {
           if (!showAllPlayers && idx >= 5) return null;
           return (
-            <div key={player.player.id} className="best-player">
+            <Link
+              to={`/matches/player/${player.player.id}`}
+              key={player.player.id}
+              className="best-player"
+            >
               <div className="best-player-ranking">{(idx += 1)}</div>
               <img
                 src={`https://api.sofascore.app/api/v1/player/${player.player.id}/image`}
                 alt="Face of the player"
                 className="best-player-avatar"
+                onError={(e) => {
+                  e.target.src = NoPhoto; // Set placeholder image source
+                }}
               />
               <div className="best-player-info">
                 <div>{player.player.name}</div>
                 <div>{player.team.name}</div>
               </div>
               <div>{player.ratingVersions.original}</div>
-            </div>
+            </Link>
           );
         })}
       {data && data.topPlayers.length >= 5 && !showAllPlayers && (
