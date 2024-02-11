@@ -44,7 +44,6 @@ function AllMatches({ selectedDate }) {
       groupedMatches[key] = [];
     }
     groupedMatches[key].push(matchInfo);
-    console.log(groupedMatches);
   });
 
   const filteredMatches = Object.keys(groupedMatches).filter((key) => {
@@ -83,7 +82,6 @@ function AllMatches({ selectedDate }) {
         filters={["All", "Live", "Finished", "Scheduled"]}
       />
       {filteredMatches.map((key, index) => {
-        console.log(key);
         const [tournamentName, categoryName] = key.split("_");
         if (!showAllMatches && index >= 10) return null;
         return (

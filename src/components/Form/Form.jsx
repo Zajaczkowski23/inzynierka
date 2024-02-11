@@ -4,29 +4,58 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import "./Form.css";
 import Close from "../../assets/close.svg";
+import axios from "axios";
 
 const Form = ({ header, headerText, linkText, button, register }) => {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordMatch, setPasswordMatch] = useState(true); // Set initial state to true
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [userExist, setUserExist] = useState(true);
 
   const navigate = useNavigate();
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (register) {
-      // Check if passwords match
       if (password !== confirmPassword) {
         setPasswordMatch(false);
         return;
+      } else {
+        setPasswordMatch(true);
       }
-      setPasswordMatch(true);
-      navigate("/matches");
+      try {
+        const response = await axios.post(
+          "http://localhost:4200/api/register",
+          {
+            name,
+            email,
+            password,
+          }
+        );
+        if (response.data.message === "User Added Successfully!") {
+          navigate("/account/login");
+        }
+      } catch (error) {
+        console.log("Error:", error.response.data);
+      }
     } else {
-      if (password.length > 0 && email.length > 0) {
-        navigate("/matches");
+      try {
+        const response = await axios.post("http://localhost:4200/api/login", {
+          username: email,
+          password,
+        });
+        if (response.data.message === "Login Successful!") {
+          navigate("/matches");
+        } else if (response.data.message === "No user found!") {
+          setUserExist(false);
+          setPasswordMatch(true);
+        } else {
+          setPasswordMatch(false);
+          setUserExist(true);
+        }
+      } catch (error) {
+        console.error("Error:", error.response.data);
       }
     }
   };
@@ -42,7 +71,16 @@ const Form = ({ header, headerText, linkText, button, register }) => {
       </Link>
       <h2 className="account-header">{header}</h2>
       <p className="account-text">{headerText}</p>
-      <form className="account-form">
+      <form className="account-form" onSubmit={handleSubmit}>
+        {register && (
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="account-input"
+            placeholder="Username"
+          />
+        )}
         <input
           type="text"
           value={email}
@@ -76,6 +114,9 @@ const Form = ({ header, headerText, linkText, button, register }) => {
           {button}
         </button>
         {!passwordMatch && <p className="error">Passwords do not match.</p>}
+        {!userExist && !register && (
+          <p className="error">Ups! User do not exist.</p>
+        )}
       </form>
     </div>
   );
