@@ -12,6 +12,7 @@ import LeagueStanding from "./pages/LeagueStanding";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Player from "./pages/Player";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/matches/:id" Component={MatchDetail}></Route>
         <Route path="/standings/:id" Component={LeagueStanding}></Route>
         <Route path="/matches/player/:id" Component={Player}></Route>
+        <Route path="/profile" Component={Profile}></Route>
         <Route path="*" element={<Navigate to="/matches" replace />} />
       </Routes>
     </Router>

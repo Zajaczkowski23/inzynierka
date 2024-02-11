@@ -50,3 +50,8 @@ body {
 .register-page {
   background-color: #fff0a0;
 }
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}

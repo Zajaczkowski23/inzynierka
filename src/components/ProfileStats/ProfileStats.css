@@ -1,0 +1,19 @@
+.profile-stats {
+  margin-left: 250px;
+  margin-top: 100px;
+  width: 400px;
+  text-align: center;
+}
+
+.user-name {
+  font-size: 28px;
+  margin-top: 25px;
+  margin-bottom: 50px;
+}
+
+.stats-detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
