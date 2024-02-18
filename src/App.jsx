@@ -22,7 +22,10 @@ function App() {
         <Route path="/account/register" Component={Register}></Route>
         <Route path="/matches" Component={Home}></Route>
         <Route path="/news" Component={News}></Route>
-        <Route path="/matches/:id" Component={MatchDetail}></Route>
+        <Route
+          path="/matches/:id/season/:seasonId/tournament/:tournamentId"
+          Component={MatchDetail}
+        ></Route>
         <Route path="/standings/:id" Component={LeagueStanding}></Route>
         <Route path="/matches/player/:id" Component={Player}></Route>
         <Route path="/profile" Component={Profile}></Route>

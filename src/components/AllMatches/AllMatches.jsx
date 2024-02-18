@@ -5,6 +5,9 @@ import FilterList from "../FilterList/FilterList";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import CircularProgress from "@mui/material/CircularProgress";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import Match from "../Match/Match";
 
 function AllMatches({ selectedDate }) {
   const getFormattedDate = () => {
@@ -17,10 +20,36 @@ function AllMatches({ selectedDate }) {
   const [selectedSeasonId, setSelectedSeasonId] = useState(null);
   const [showAllMatches, setShowAllMatches] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("All");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     setFormattedDate(getFormattedDate());
   }, [selectedDate]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      setUserId(decoded.name);
+    }
+  }, []);
+
+  // const updateFavoriteTeamsByName = async (name, favoriteTeams) => {
+  //   try {
+  //     const response = await fetch("/api/user/favoriteTeams", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ name, favoriteTeams }),
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error("Failed to update favorite teams");
+  //     }
+  //     const updatedUser = await response.json();
+  //     console.log("Updated favorite teams:", updatedUser.favoriteTeams);
+  //   } catch (error) {
+  //     console.error("Error updating favorite teams:", error);
+  //   }
+  // };
 
   const api = `https://api.sofascore.com/api/v1/sport/football/scheduled-events/${formattedDate}`;
   const { data } = useFetch(api);
@@ -109,43 +138,12 @@ function AllMatches({ selectedDate }) {
 
               if (selectedDate.getDate() === day) {
                 return (
-                  <Link
-                    className="data-section__group"
-                    key={matchInfo.customId}
-                    to={`/matches/${matchInfo.id}`}
-                  >
-                    <div className="data-section__country">
-                      <div className="data-section__match-info">
-                        <div className="data-section__start-match">
-                          <div className="data-section__start-time">
-                            {`${hours}:${minutes}`}
-                          </div>
-                        </div>
-                        <div className="data-section__flags">
-                          <img
-                            src={`https://api.sofascore.app/api/v1/team/${matchInfo.homeTeam.id}/image/small`}
-                            alt={`${matchInfo.homeTeam.name} logo`}
-                          />
-                          <img
-                            src={`https://api.sofascore.app/api/v1/team/${matchInfo.awayTeam.id}/image/small`}
-                            alt={`${matchInfo.awayTeam.name} logo`}
-                          />
-                        </div>
-                        <div className="data-section__teams">
-                          <div className="team">{matchInfo.homeTeam.name}</div>
-                          <div className="team">{matchInfo.awayTeam.name}</div>
-                        </div>
-                        <div className="data-section__score">
-                          <div className="score">
-                            {matchInfo.homeScore.current}
-                          </div>
-                          <div className="score">
-                            {matchInfo.awayScore.current}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
+                  <Match
+                    matchInfo={matchInfo}
+                    key={matchInfo.id}
+                    hours={hours}
+                    minutes={minutes}
+                  />
                 );
               }
             })}

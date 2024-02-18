@@ -4,9 +4,10 @@ import useFetch from "../hooks/fetchDataHook";
 import Stats from "../components/Stats/Stats";
 import Result from "../components/Stats/Result/Result";
 import Sidebar from "../components/Side-bar/Sidebar";
+import Standings from "../components/Standings/Standings";
 
 const MatchDetail = () => {
-  const { id } = useParams();
+  let { id, seasonId, tournamentId } = useParams();
 
   const { data: lineupsData } = useFetch(
     `https://api.sofascore.com/api/v1/event/${id}/lineups`
@@ -17,8 +18,11 @@ const MatchDetail = () => {
       <Header />
       <Sidebar />
       <div className="match-detail-container">
-        <Result id={id} />
-        <Stats id={id} />
+        <div>
+          <Result id={id} />
+          <Stats id={id} />
+        </div>
+        <Standings idOfTournament={tournamentId} idOfSeason={seasonId} />
       </div>
     </div>
   );

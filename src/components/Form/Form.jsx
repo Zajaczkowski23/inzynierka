@@ -46,6 +46,8 @@ const Form = ({ header, headerText, linkText, button, register }) => {
           password,
         });
         if (response.data.message === "Login Successful!") {
+          localStorage.setItem("token", response.data.token);
+          console.log(response);
           navigate("/matches");
         } else if (response.data.message === "No user found!") {
           setUserExist(false);

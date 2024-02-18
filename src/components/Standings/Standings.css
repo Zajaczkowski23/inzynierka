@@ -1,0 +1,89 @@
+/* Standings.module.css */
+.tableContainer {
+  font-family: "Arial", sans-serif;
+  overflow-x: auto;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.leagueTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leagueTable th,
+.leagueTable td {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.leagueTable th {
+  background-color: #f7f7f7;
+  color: #333;
+  font-weight: bold;
+}
+
+.leagueTable td {
+  color: #666;
+}
+
+.leagueTable tr:last-child td {
+  border-bottom: none;
+}
+
+.leagueTable td:nth-child(1), /* Rank */
+.leagueTable th:nth-child(1),
+.leagueTable td:nth-child(3), /* P */
+.leagueTable th:nth-child(3),
+.leagueTable td:nth-child(4), /* W */
+.leagueTable th:nth-child(4),
+.leagueTable td:nth-child(5), /* D */
+.leagueTable th:nth-child(5),
+.leagueTable td:nth-child(6), /* L */
+.leagueTable th:nth-child(6),
+.leagueTable td:nth-child(8), /* PTS */
+.leagueTable th:nth-child(8) {
+  text-align: center;
+}
+
+/* Hover effect for rows */
+.leagueTable tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Last 5 games specific styling */
+.lastFive {
+  display: flex;
+  justify-content: space-around;
+}
+
+.lastFive span {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-block;
+  line-height: 16px;
+  color: #fff;
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+.championsleague {
+  background-color: lightgreen;
+  border-radius: 100%;
+}
+
+.europa {
+  background-color: lightblue;
+  border-radius: 100%;
+}
+
+.conference {
+  background-color: lightcyan;
+  border-radius: 100%;
+}
+
+.relegation {
+  background-color: red;
+  border-radius: 100%;
+}

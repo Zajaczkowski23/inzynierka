@@ -1,0 +1,44 @@
+.statistics {
+  font-family: "Arial", sans-serif;
+  padding: 20px;
+  background: #fff;
+}
+
+.statsTitle {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.statItem {
+  margin-bottom: 10px;
+}
+
+.statLabel {
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.statBarContainer {
+  display: flex;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
+
+.statBarHome,
+.statBarAway {
+  padding: 5px;
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.statBarHome {
+  background-color: #4caf50; /* green */
+  margin-right: 2px;
+}
+
+.statBarAway {
+  background-color: #f44336; /* red */
+}

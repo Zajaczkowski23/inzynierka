@@ -7,7 +7,6 @@ import NoPhoto from "../../assets/no_photo.svg";
 const BestPlayers = () => {
   const api =
     "https://api.sofascore.com/api/v1/sport/football/trending-top-players";
-
   const { data } = useFetch(api);
   const [showAllPlayers, setShowAllPlayers] = useState(false);
 
