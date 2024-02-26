@@ -85,6 +85,11 @@ function Header() {
                   Profile
                 </Link>
               </MenuItem>
+              <MenuItem>
+                <Link to={"/chat"} className="header__text">
+                  Chat
+                </Link>
+              </MenuItem>
               <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
           </div>

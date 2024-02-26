@@ -1,0 +1,56 @@
+.lineupContainer {
+  display: flex;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.team {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.team-site {
+  margin: 10px 0;
+}
+
+.nodeClass {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  background-color: #fff;
+  margin: 5px 0;
+  padding: 10px;
+  width: 95%;
+  max-width: 500px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nodeClass span {
+  margin: 0 10px;
+}
+
+.number,
+.position,
+.name {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.number {
+  color: #007bff; /* Bootstrap primary color */
+  width: 40px;
+}
+
+.position {
+  color: #28a745; /* Bootstrap success color */
+  width: 100px;
+}
+
+.name {
+  color: #343a40; /* Bootstrap dark color */
+  flex-grow: 1;
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useFetch from "../../hooks/fetchDataHook";
 import "./AllMatches.css";
 import FilterList from "../FilterList/FilterList";
@@ -8,6 +8,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import Match from "../Match/Match";
+import Favorite from "../../assets/Favorite.svg";
 
 function AllMatches({ selectedDate }) {
   const getFormattedDate = () => {
@@ -20,7 +21,9 @@ function AllMatches({ selectedDate }) {
   const [selectedSeasonId, setSelectedSeasonId] = useState(null);
   const [showAllMatches, setShowAllMatches] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("All");
-  const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
+  const [favoriteTeams, setFavoriteTeams] = useState([]);
+  const [favoriteLeagues, setFavoriteLeagues] = useState([]);
 
   useEffect(() => {
     setFormattedDate(getFormattedDate());
@@ -30,26 +33,93 @@ function AllMatches({ selectedDate }) {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
-      setUserId(decoded.name);
+      setUserName(decoded.name || "");
     }
   }, []);
 
-  // const updateFavoriteTeamsByName = async (name, favoriteTeams) => {
-  //   try {
-  //     const response = await fetch("/api/user/favoriteTeams", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ name, favoriteTeams }),
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error("Failed to update favorite teams");
-  //     }
-  //     const updatedUser = await response.json();
-  //     console.log("Updated favorite teams:", updatedUser.favoriteTeams);
-  //   } catch (error) {
-  //     console.error("Error updating favorite teams:", error);
-  //   }
-  // };
+  const fetchFavoriteTeams = useCallback(async () => {
+    if (userName) {
+      try {
+        const response = await axios.get(
+          `http://localhost:4200/api/favoriteTeam?userName=${userName}`
+        );
+        setFavoriteTeams(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, [userName]);
+
+  useEffect(() => {
+    fetchFavoriteTeams();
+  });
+
+  const addFavoriteTeam = async (teamId) => {
+    try {
+      const teamData = {
+        userName: userName,
+        teamName: teamId,
+      };
+
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post(
+        "http://localhost:4200/api/user/favoriteTeam",
+        teamData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("Team added to favorites:", response.data);
+    } catch (error) {
+      console.error("Failed to add team to favorites", error);
+    }
+  };
+
+  const fetchFavoriteLeagues = useCallback(async () => {
+    if (userName) {
+      try {
+        const response = await axios.get(
+          `http://localhost:4200/api/favoriteLeagues?userName=${userName}`
+        );
+        setFavoriteLeagues(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, [userName]);
+
+  useEffect(() => {
+    fetchFavoriteLeagues();
+  });
+
+  const addFavoriteLeague = async (leagueID) => {
+    try {
+      const leagueData = {
+        userName: userName,
+        leagueName: leagueID,
+      };
+
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post(
+        "http://localhost:4200/api/user/favoriteLeagues",
+        leagueData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("Team added to favorites:", response.data);
+    } catch (error) {
+      console.error("Failed to add team to favorites", error);
+    }
+  };
 
   const api = `https://api.sofascore.com/api/v1/sport/football/scheduled-events/${formattedDate}`;
   const { data } = useFetch(api);
@@ -62,38 +132,40 @@ function AllMatches({ selectedDate }) {
     setSelectedFilter(filter);
   };
 
-  const groupedMatches = {};
+  const filterAndGroupMatches = () => {
+    let filteredAndGroupedMatches = {};
 
-  data.events.forEach((matchInfo) => {
-    const tournamentName = matchInfo.tournament.name;
-    const categoryName = matchInfo.tournament.category.name;
-    const key = `${tournamentName}_${categoryName}`;
-
-    if (!groupedMatches[key]) {
-      groupedMatches[key] = [];
-    }
-    groupedMatches[key].push(matchInfo);
-  });
-
-  const filteredMatches = Object.keys(groupedMatches).filter((key) => {
-    if (selectedFilter === "All") {
-      return true;
-    }
-
-    const matchesForFilter = groupedMatches[key];
-    const typeMap = {
-      All: true,
-      Live: "inprogress",
-      Finished: "finished",
-      Scheduled: "notstarted",
-    };
-
-    return matchesForFilter.some((matchInfo) => {
-      return typeMap[selectedFilter]
-        ? matchInfo.status.type === typeMap[selectedFilter]
-        : false;
+    let matches = data.events.filter((matchInfo) => {
+      if (selectedFilter === "Your clubs") {
+        return favoriteTeams.some(
+          (favoriteTeam) =>
+            matchInfo.homeTeam.name === favoriteTeam ||
+            matchInfo.awayTeam.name === favoriteTeam
+        );
+      } else if (selectedFilter === "Your Leagues") {
+        return favoriteLeagues.some(
+          (favoriteLeague) => matchInfo.tournament.name === favoriteLeague
+        );
+      } else {
+        return true; // If filter is not "Your clubs", don't filter out any matches
+      }
     });
-  });
+
+    matches.forEach((matchInfo) => {
+      const tournamentName = matchInfo.tournament.name;
+      const categoryName = matchInfo.tournament.category.name;
+      const key = `${tournamentName}_${categoryName}`;
+
+      if (!filteredAndGroupedMatches[key]) {
+        filteredAndGroupedMatches[key] = [];
+      }
+      filteredAndGroupedMatches[key].push(matchInfo);
+    });
+
+    return filteredAndGroupedMatches;
+  };
+
+  const filteredAndGroupedMatches = filterAndGroupMatches();
 
   const convertTime = (time) => {
     const convertTime = new Date(time * 1000);
@@ -108,9 +180,9 @@ function AllMatches({ selectedDate }) {
     <div className="data-section">
       <FilterList
         onFilterChange={handleFilterChange}
-        filters={["All", "Live", "Finished", "Scheduled"]}
+        filters={["All", "Your clubs", "Your Leagues"]}
       />
-      {filteredMatches.map((key, index) => {
+      {Object.keys(filteredAndGroupedMatches).map((key, index) => {
         const [tournamentName, categoryName] = key.split("_");
         if (!showAllMatches && index >= 10) return null;
         return (
@@ -118,7 +190,16 @@ function AllMatches({ selectedDate }) {
             <div className="all-matches-league-info">
               <div className="league-info">
                 <h3>{categoryName}</h3>
-                <h2>{tournamentName}</h2>
+                <div>
+                  <h2>
+                    {tournamentName}
+                    <img
+                      src={Favorite}
+                      alt="Add favorite"
+                      onClick={() => addFavoriteLeague(tournamentName)}
+                    />
+                  </h2>
+                </div>
               </div>
               <Link
                 to={`/standings/${selectedSeasonId}`}
@@ -127,7 +208,7 @@ function AllMatches({ selectedDate }) {
                 Standings
               </Link>
             </div>
-            {groupedMatches[key].map((matchInfo) => {
+            {filteredAndGroupedMatches[key].map((matchInfo) => {
               let { hours, day, minutes } = convertTime(
                 matchInfo.startTimestamp
               );
@@ -143,6 +224,7 @@ function AllMatches({ selectedDate }) {
                     key={matchInfo.id}
                     hours={hours}
                     minutes={minutes}
+                    addTeam={addFavoriteTeam}
                   />
                 );
               }
@@ -150,15 +232,16 @@ function AllMatches({ selectedDate }) {
           </div>
         );
       })}
-      {Object.keys(groupedMatches).length >= 10 && !showAllMatches && (
-        <button
-          className="btn btn-matches"
-          onClick={() => setShowAllMatches(true)}
-        >
-          Show All Matches
-          <span className="material-symbols-outlined">expand_more</span>
-        </button>
-      )}
+      {Object.keys(filteredAndGroupedMatches).length >= 10 &&
+        !showAllMatches && (
+          <button
+            className="btn btn-matches"
+            onClick={() => setShowAllMatches(true)}
+          >
+            Show All Matches
+            <span className="material-symbols-outlined">expand_more</span>
+          </button>
+        )}
     </div>
   );
 }

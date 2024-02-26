@@ -10,6 +10,8 @@ const BestPlayers = () => {
   const { data } = useFetch(api);
   const [showAllPlayers, setShowAllPlayers] = useState(false);
 
+  console.log(data);
+
   return (
     <div className="best-player-section">
       <h3>Best Players</h3>
