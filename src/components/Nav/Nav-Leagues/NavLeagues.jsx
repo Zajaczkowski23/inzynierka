@@ -31,7 +31,7 @@ function NavLeagues() {
 
   useEffect(() => {
     fetchFavoriteLeagues();
-  });
+  }, [userName, fetchFavoriteLeagues]);
 
   const deleteFavoriteLeagues = async (userName, leagueName) => {
     try {

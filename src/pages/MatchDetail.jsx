@@ -5,9 +5,10 @@ import Result from "../components/Stats/Result/Result";
 import Sidebar from "../components/Side-bar/Sidebar";
 import Standings from "../components/Standings/Standings";
 import Lineups from "../components/Lineups/Lineups";
+import H2h from "../components/H2h/H2h";
 
 const MatchDetail = () => {
-  let { id, seasonId, tournamentId } = useParams();
+  let { id, seasonId, tournamentId, customId } = useParams();
 
   return (
     <div>
@@ -17,6 +18,7 @@ const MatchDetail = () => {
         <div>
           <Result id={id} />
           <Stats id={id} />
+          <H2h customId={customId} />
         </div>
         <Standings idOfTournament={tournamentId} idOfSeason={seasonId} />
         <Lineups id={id} />

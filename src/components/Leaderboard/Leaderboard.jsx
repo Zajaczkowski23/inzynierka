@@ -6,19 +6,6 @@ import axios from "axios";
 const Leaderboard = () => {
   const [users, setUsers] = useState([]);
 
-  const leaderboard = [
-    { place: 1, name: "profile1", points: 100 },
-    { place: 2, name: "profile2", points: 90 },
-    { place: 3, name: "profile3", points: 80 },
-    { place: 4, name: "profile4", points: 70 },
-    { place: 5, name: "profile5", points: 60 },
-    { place: 6, name: "profile6", points: 50 },
-    { place: 7, name: "profile7", points: 40 },
-    { place: 8, name: "profile8", points: 30 },
-    { place: 9, name: "profile9", points: 20 },
-    { place: 10, name: "profile10", points: 10 },
-  ];
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -61,7 +48,7 @@ const Leaderboard = () => {
                 </div>
                 <div className="leaderboard-profile-name">{profile.name}</div>
                 <div className="leaderboard-profile-points">
-                  {profile.points}
+                  {-(5 * (i - 10))}
                 </div>
               </div>
             ))}

@@ -57,70 +57,173 @@ body {
   justify-content: space-between;
 }
 
+/* Chat Container */
 .chat-container {
   display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 100vh;
+  background-color: #f0f2f5;
 }
 
 .chat-interface {
   display: flex;
-  background-color: #f5f5f5; /* Replace with your background color */
-  border-left: 1px solid #ddd; /* Adjust color as needed */
-  padding: 20px;
-  align-items: center;
-  margin-left: 150px;
+  flex-direction: column;
+  width: 60%;
+  max-width: 800px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
+/* User List */
 .user-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+  background-color: #e4e6eb;
+  border-bottom: 1px solid #ccc;
 }
 
 .user-list-item {
-  padding: 10px;
+  padding: 8px 12px;
+  margin-right: 8px;
   cursor: pointer;
-  border-bottom: 1px solid #ddd; /* Adjust color as needed */
+  white-space: nowrap;
+  border-radius: 15px;
+  transition: background-color 0.3s;
 }
 
-.user-list-item.active {
-  background-color: #ebebeb; /* Active user background */
-}
-
+.user-list-item.active,
 .user-list-item:hover {
-  background-color: #f0f0f0; /* Hover state background */
+  background-color: #d8dadf;
 }
 
+/* Message Input and Send Button */
 .message-input {
-  border: 1px solid #ddd; /* Adjust color as needed */
   padding: 10px;
-  margin-top: auto; /* Pushes the input to the bottom */
-  border-radius: 4px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin: 10px;
+  flex-grow: 1;
 }
 
 .send-button {
-  background-color: #4caf50; /* Adjust button color as needed */
+  background-color: #007bff;
   color: white;
-  padding: 10px 20px;
-  margin-left: 10px;
+  padding: 10px 15px;
+  margin: 10px;
   border: none;
-  border-radius: 4px;
+  border-radius: 20px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .send-button:hover {
-  background-color: #45a049; /* Hover state background */
+  background-color: #0056b3;
 }
 
+/* Messages List */
 .messages-list {
+  flex-grow: 1;
+  padding: 20px;
   overflow-y: auto;
-  margin: 0;
-  padding: 0;
 }
 
 .message {
-  background-color: #fff; /* Message background */
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+/* stats.css */
+
+.idk {
+  margin-top: 150px;
+}
+
+.header-stats {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.stat-box {
+  align-items: center;
+  justify-content: center;
   padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ddd; /* Adjust color as needed */
+  border-radius: 5px;
+  background-color: #fff; /* Adjust the box background color */
+}
+
+.stat-key {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  color: #333;
+}
+
+.stat-value {
+  font-size: 18px;
+  color: #333;
+}
+
+.fix {
+  margin-left: 7rem;
+  margin-top: 4rem;
+}
+
+.lastMatchesContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.matchItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.teamScore {
+  display: flex;
+  align-items: center;
+}
+
+.homeTeam,
+.awayTeam {
+  font-weight: bold;
+}
+
+.homeScore,
+.awayScore {
+  margin-left: 5px;
+}
+
+.something-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.rating {
+  margin-left: 1rem;
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .chat-interface {
+    width: 90%;
+  }
 }

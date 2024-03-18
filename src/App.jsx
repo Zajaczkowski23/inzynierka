@@ -24,10 +24,13 @@ function App() {
         <Route path="/matches" Component={Home}></Route>
         <Route path="/news" Component={News}></Route>
         <Route
-          path="/matches/:id/season/:seasonId/tournament/:tournamentId"
+          path="/matches/:id/season/:seasonId/tournament/:tournamentId/:customId"
           Component={MatchDetail}
         ></Route>
-        <Route path="/standings/:id" Component={LeagueStanding}></Route>
+        <Route
+          path="/standings/:tournamentId/:leagueId/:id"
+          Component={LeagueStanding}
+        ></Route>
         <Route path="/matches/player/:id" Component={Player}></Route>
         <Route path="/profile" Component={Profile}></Route>
         <Route path="/chat" Component={Chat}></Route>

@@ -8,16 +8,12 @@ const Match = ({ matchInfo, hours, minutes, addTeam }) => {
   };
 
   return (
-    <Link
-      className="data-section__group"
-      key={matchInfo.customId}
-      to={`/matches/${matchInfo.id}/season/${matchInfo.tournament.id}/tournament/${matchInfo.season.id}`}
-    >
+    <div className="data-section__group" key={matchInfo.customId}>
       <div className="data-section__country">
         <div className="data-section__match-info">
           <div className="data-section__start-match">
             <div className="data-section__start-time">
-              {`${hours}:${minutes}`}
+              {hours ? `${hours}:${minutes}` : null}
             </div>
           </div>
           <div className="data-section__flags">
@@ -45,8 +41,16 @@ const Match = ({ matchInfo, hours, minutes, addTeam }) => {
             </div>
           </div>
           <div className="data-section__teams">
-            <div className="team">{matchInfo.homeTeam.name}</div>
-            <div className="team">{matchInfo.awayTeam.name}</div>
+            <Link
+              to={`/matches/${matchInfo.id}/season/${matchInfo.tournament.id}/tournament/${matchInfo.season.id}/${matchInfo.customId}`}
+            >
+              <div className="team">{matchInfo.homeTeam.name}</div>
+            </Link>
+            <Link
+              to={`/matches/${matchInfo.id}/season/${matchInfo.tournament.id}/tournament/${matchInfo.season.id}`}
+            >
+              <div className="team">{matchInfo.awayTeam.name}</div>
+            </Link>
           </div>
           <div className="data-section__score">
             <div className="score">{matchInfo.homeScore.current}</div>
@@ -54,7 +58,7 @@ const Match = ({ matchInfo, hours, minutes, addTeam }) => {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

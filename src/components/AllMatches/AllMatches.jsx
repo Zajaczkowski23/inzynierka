@@ -18,7 +18,6 @@ function AllMatches({ selectedDate }) {
     return `${year}-${month}-${day}`;
   };
   const [formattedDate, setFormattedDate] = useState(getFormattedDate());
-  const [selectedSeasonId, setSelectedSeasonId] = useState(null);
   const [showAllMatches, setShowAllMatches] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("All");
   const [userName, setUserName] = useState("");
@@ -52,7 +51,7 @@ function AllMatches({ selectedDate }) {
 
   useEffect(() => {
     fetchFavoriteTeams();
-  });
+  }, [userName, fetchFavoriteTeams]);
 
   const addFavoriteTeam = async (teamId) => {
     try {
@@ -94,7 +93,7 @@ function AllMatches({ selectedDate }) {
 
   useEffect(() => {
     fetchFavoriteLeagues();
-  });
+  }, [userName, fetchFavoriteLeagues]);
 
   const addFavoriteLeague = async (leagueID) => {
     try {
@@ -147,19 +146,46 @@ function AllMatches({ selectedDate }) {
           (favoriteLeague) => matchInfo.tournament.name === favoriteLeague
         );
       } else {
-        return true; // If filter is not "Your clubs", don't filter out any matches
+        return true;
       }
     });
+
+    const handleWinnerSelection = async (matchId, selectedWinner) => {
+      const token = localStorage.getItem("token"); // Assuming you're using JWT for auth
+      try {
+        await axios.post(
+          "http://localhost:4200/api/match/winner",
+          { matchId, selectedWinner },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        // Handle success (e.g., showing a notification)
+      } catch (error) {
+        // Handle error
+        console.error("Failed to submit winner selection", error);
+      }
+    };
 
     matches.forEach((matchInfo) => {
       const tournamentName = matchInfo.tournament.name;
       const categoryName = matchInfo.tournament.category.name;
+      const tournamentId = matchInfo.tournament.id;
+      const seasonId = matchInfo.season.id;
+      const uniqId = matchInfo.tournament.uniqueTournament.id;
       const key = `${tournamentName}_${categoryName}`;
 
       if (!filteredAndGroupedMatches[key]) {
-        filteredAndGroupedMatches[key] = [];
+        filteredAndGroupedMatches[key] = {
+          matches: [],
+          tournamentId,
+          seasonId,
+          uniqId,
+        };
       }
-      filteredAndGroupedMatches[key].push(matchInfo);
+      filteredAndGroupedMatches[key].matches.push(matchInfo);
     });
 
     return filteredAndGroupedMatches;
@@ -184,7 +210,11 @@ function AllMatches({ selectedDate }) {
       />
       {Object.keys(filteredAndGroupedMatches).map((key, index) => {
         const [tournamentName, categoryName] = key.split("_");
+        const group = filteredAndGroupedMatches[key];
+        const { matches, seasonId, tournamentId, uniqId } = group;
+
         if (!showAllMatches && index >= 10) return null;
+
         return (
           <div key={key} className="all-matches-section">
             <div className="all-matches-league-info">
@@ -201,14 +231,12 @@ function AllMatches({ selectedDate }) {
                   </h2>
                 </div>
               </div>
-              <Link
-                to={`/standings/${selectedSeasonId}`}
-                onClick={() => setSelectedSeasonId()}
-              >
+              {/* Use tournamentId for navigation link */}
+              <Link to={`/standings/${tournamentId}/${uniqId}/${seasonId}`}>
                 Standings
               </Link>
             </div>
-            {filteredAndGroupedMatches[key].map((matchInfo) => {
+            {matches.map((matchInfo) => {
               let { hours, day, minutes } = convertTime(
                 matchInfo.startTimestamp
               );
@@ -228,10 +256,12 @@ function AllMatches({ selectedDate }) {
                   />
                 );
               }
+              return null;
             })}
           </div>
         );
       })}
+
       {Object.keys(filteredAndGroupedMatches).length >= 10 &&
         !showAllMatches && (
           <button

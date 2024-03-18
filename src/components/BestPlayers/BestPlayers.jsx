@@ -10,8 +10,6 @@ const BestPlayers = () => {
   const { data } = useFetch(api);
   const [showAllPlayers, setShowAllPlayers] = useState(false);
 
-  console.log(data);
-
   return (
     <div className="best-player-section">
       <h3>Best Players</h3>
@@ -30,7 +28,7 @@ const BestPlayers = () => {
                 alt="Face of the player"
                 className="best-player-avatar"
                 onError={(e) => {
-                  e.target.src = NoPhoto; // Set placeholder image source
+                  e.target.src = NoPhoto;
                 }}
               />
               <div className="best-player-info">

@@ -58,7 +58,6 @@ function Chat() {
       socket.emit("send_message", { recipientName, message, senderId: userId });
       setMessage("");
     }
-    console.log(recipientName);
   };
 
   useEffect(() => {

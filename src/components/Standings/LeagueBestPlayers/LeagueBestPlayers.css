@@ -1,0 +1,46 @@
+.league-best-players {
+  font-family: Arial, sans-serif;
+}
+
+.player-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.player-ranking {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 10px;
+  width: 30px;
+}
+
+.player-image {
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+  border-radius: 50%; /* Makes image circular */
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.player-info {
+  flex-grow: 1;
+}
+
+.player-name {
+  font-weight: bold;
+}
+
+.player-team {
+  color: #555;
+}
+
+.player-rating {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  padding: 5px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: auto; /* Pushes the rating to the right */
+}

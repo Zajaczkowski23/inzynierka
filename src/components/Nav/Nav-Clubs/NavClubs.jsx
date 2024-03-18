@@ -31,7 +31,7 @@ function NavClubs() {
 
   useEffect(() => {
     fetchFavoriteTeams();
-  });
+  }, [userName, fetchFavoriteTeams]);
 
   const deleteFavoriteTeam = async (userName, teamName) => {
     try {
