@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Favorite from "../../assets/Favorite.svg";
+import { useState } from "react";
+import PickTeam from "../PickTeam/PickTeam";
 
-const Match = ({ matchInfo, hours, minutes, addTeam }) => {
+const Match = ({ matchInfo, hours, minutes, addTeam, currentUser }) => {
+  const [showPickTeam, setShowPickTeam] = useState(false);
   const handleClick = (team) => {
     addTeam(team);
   };
@@ -56,8 +59,21 @@ const Match = ({ matchInfo, hours, minutes, addTeam }) => {
             <div className="score">{matchInfo.homeScore.current}</div>
             <div className="score">{matchInfo.awayScore.current}</div>
           </div>
+          <button
+            className="btn"
+            onClick={() => setShowPickTeam(!showPickTeam)}
+          >
+            Pick Winner
+          </button>
         </div>
       </div>
+      {showPickTeam && (
+        <PickTeam
+          homeTeam={matchInfo.homeTeam.name}
+          awayTeam={matchInfo.awayTeam.name}
+          nameOfUser={currentUser}
+        />
+      )}
     </div>
   );
 };

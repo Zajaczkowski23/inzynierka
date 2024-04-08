@@ -1,0 +1,37 @@
+.pickTeamOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.pickTeamContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formContainer {
+  border: 2px solid #fff;
+  padding: 20px;
+  margin: 10px 0;
+  width: 80%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  z-index: 1001;
+}
+
+.teamInfo {
+  font-weight: bold;
+}

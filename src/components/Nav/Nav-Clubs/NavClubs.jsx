@@ -3,10 +3,13 @@ import "../Nav.css";
 import { useEffect, useState, useCallback } from "react";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import Snackbar from "@mui/material/Snackbar";
 
 function NavClubs() {
   const [favoriteTeams, setFavoriteTeams] = useState([]);
   const [userName, setUserName] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -47,6 +50,8 @@ function NavClubs() {
   };
 
   const handleDeleteClick = (activeTeam) => {
+    setSnackbarMessage(`${activeTeam} deleted from favorites!`);
+    setSnackbarOpen(true);
     deleteFavoriteTeam(userName, activeTeam);
   };
 
@@ -65,6 +70,12 @@ function NavClubs() {
       ) : (
         <div>Create an account to follow clubs</div>
       )}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarOpen(false)}
+        message={snackbarMessage}
+      />
     </div>
   );
 }

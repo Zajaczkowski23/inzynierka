@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import useFetch from "../../hooks/fetchDataHook";
 import "./AllMatches.css";
 import FilterList from "../FilterList/FilterList";
@@ -9,6 +9,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import Match from "../Match/Match";
 import Favorite from "../../assets/Favorite.svg";
+import Snackbar from "@mui/material/Snackbar";
 
 function AllMatches({ selectedDate }) {
   const getFormattedDate = () => {
@@ -23,6 +24,8 @@ function AllMatches({ selectedDate }) {
   const [userName, setUserName] = useState("");
   const [favoriteTeams, setFavoriteTeams] = useState([]);
   const [favoriteLeagues, setFavoriteLeagues] = useState([]);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   useEffect(() => {
     setFormattedDate(getFormattedDate());
@@ -71,8 +74,8 @@ function AllMatches({ selectedDate }) {
           },
         }
       );
-
-      console.log("Team added to favorites:", response.data);
+      setSnackbarMessage(`${teamId} added to favorites!`);
+      setSnackbarOpen(true);
     } catch (error) {
       console.error("Failed to add team to favorites", error);
     }
@@ -253,6 +256,7 @@ function AllMatches({ selectedDate }) {
                     hours={hours}
                     minutes={minutes}
                     addTeam={addFavoriteTeam}
+                    currentUser={userName}
                   />
                 );
               }
@@ -272,6 +276,12 @@ function AllMatches({ selectedDate }) {
             <span className="material-symbols-outlined">expand_more</span>
           </button>
         )}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarOpen(false)}
+        message={snackbarMessage}
+      />
     </div>
   );
 }
