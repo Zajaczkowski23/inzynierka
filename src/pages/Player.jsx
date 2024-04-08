@@ -6,14 +6,13 @@ import Sidebar from "../components/Side-bar/Sidebar";
 import Header from "../components/Header/Header";
 
 const Player = () => {
-  const { id } = useParams();
+  const { name, id } = useParams();
   const api =
     "https://api.sofascore.com/api/v1/sport/football/trending-top-players";
   const eventsApi = `https://api.sofascore.com/api/v1/player/${id}/events/last/0`;
   const { data } = useFetch(api);
   const { data: eventsData } = useFetch(eventsApi);
 
-  // State to hold organized events
   const [organizedEvents, setOrganizedEvents] = useState({});
   const [selectedSeason, setSelectedSeason] = useState("");
   const [selectedUniqueId, setSelectedUniqueId] = useState("");
@@ -54,13 +53,11 @@ const Player = () => {
     });
 
     setOrganizedEvents(eventsBySeason);
-    // Set the initially selected season and uniqueId
     setSelectedSeason(seasonWithMostEvents);
     setSelectedUniqueId(uniqueIdOfMostEvents);
   }, [eventsData]);
 
   useEffect(() => {
-    // Construct and set the stats URL when season and uniqueId are selected
     if (selectedSeason && selectedUniqueId) {
       const newStatsUrl = `https://api.sofascore.com/api/v1/player/${id}/unique-tournament/${selectedUniqueId}/season/${selectedSeason}/statistics/overall`;
       const lastEvents = `https://api.sofascore.com/api/v1/player/${id}/unique-tournament/${selectedUniqueId}/season/${selectedSeason}/last-ratings`;
@@ -101,29 +98,19 @@ const Player = () => {
     fetchLastData();
   }, [lastUrl]);
 
-  console.log(lastData);
-
   return (
     <div>
       <Header />
       <Sidebar />
       <div className="fix">
         <div className="something-container">
-          {data &&
-            data.topPlayers.map((player) => {
-              if (player.player.id.toString() === id) {
-                return (
-                  <div key={player.player.id}>
-                    <img
-                      src={`https://api.sofascore.app/api/v1/player/${player.player.id}/image`}
-                      alt="Face of the player"
-                    />
-                    <div style={{ fontSize: "24px" }}>{player.player.name}</div>
-                  </div>
-                );
-              }
-              return null;
-            })}
+          <div>
+            <img
+              src={`https://api.sofascore.app/api/v1/player/${id}/image`}
+              alt="Face of the player"
+            />
+            <div style={{ fontSize: "24px" }}>{name}</div>
+          </div>
           <div className="lastMatchesContainer">
             {lastData &&
               lastData.lastRatings.map((last) => (

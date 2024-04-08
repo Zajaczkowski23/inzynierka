@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import useFetch from "../../hooks/fetchDataHook";
 import "./Lineups.css";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const PersonNode = ({ name, number, position }) => {
@@ -22,11 +23,16 @@ const Lineups = ({ id }) => {
     return players.map((player, index) => (
       <Fragment key={index}>
         {index === 11 && <div className="subs">Subs</div>}
-        <PersonNode
-          name={player.player.name}
-          number={player.shirtNumber}
-          position={player.position}
-        />
+        <Link
+          to={`/matches/player/${player.player.name}/${player.player.id}`}
+          key={player.player.id}
+        >
+          <PersonNode
+            name={player.player.name}
+            number={player.shirtNumber}
+            position={player.position}
+          />
+        </Link>
       </Fragment>
     ));
   };

@@ -18,7 +18,7 @@ const BestPlayers = () => {
           if (!showAllPlayers && idx >= 5) return null;
           return (
             <Link
-              to={`/matches/player/${player.player.id}`}
+              to={`/matches/player/${player.player.name}/${player.player.id}`}
               key={player.player.id}
               className="best-player"
             >
